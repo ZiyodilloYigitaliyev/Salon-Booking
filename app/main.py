@@ -1,9 +1,16 @@
-from fastapi import FastAPI
+from fastapi import FastAPI 
 from app.api.v1 import auth, client, booking, subscriptions, salon
 from app.api.v1 import payments as click
 from app.api.v1 import subscriptions
+from starlette.middleware.cors import CORSMiddleware
 
 app = FastAPI(title="Beauty App")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], allow_credentials=True,
+    allow_methods=["*"], allow_headers=["*"],
+)
 
 # Routerni ulash
 app.include_router(auth.router, prefix="/api/v1/auth", tags=["auth"])
